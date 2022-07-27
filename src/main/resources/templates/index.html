@@ -6,6 +6,9 @@
 <body>
     <header th:insert="fragments :: navbar('')"></header>
     <h1 class="text-center">Ecco il menu</h1>
+	<div class="container" th:if="${deleted != null && deleted != ''}">
+		<div  class="alert alert-success" th:text="${deleted}"></div>
+	</div>
     <hr>
 	<div class="container" th:if="${pizz.size() > 0}">
     	<table class="table table-striped border">
@@ -14,20 +17,25 @@
                 	<th>Nome</th>
                 	<th>Descrizione</th>
                 	<th>Prezzo</th>
+					<th>Azioni</th>
             	</tr>
         	</thead>
         	<tbody>
            		<tr th:each="p : ${pizz}">
                 	<td th:text="${p.name}"></td>
                 	<td th:text="${p.description}"></td>
-                	<td th:text="${p.price}"></td>
+                	<td th:text="${p.price}+€"></td>
+					<td>
+						<a class="btn btn-outline-danger	" title="Delete" th:href="@{|/delete/${p.id}|}" onclick="return confirm('Sei sicuro?')"><i class="fa-solid fa-ban"></i></a>
+						<a class="btn btn-outline-dark" title="Edit" th:href="@{|/edit/${p.id}|}"><i class="fa-solid fa-pen-to-square"></i></a>
+					</td>
             	</tr>
         	</tbody>
     	</table>
 	</div>
 	<div class="container">
     <p th:unless="${pizz.size() > 0}" class="text-center">Nessuna pizza trovata</p>
-	<a class="btn btn-info" href="/add">Inserisci una pizza</a>
+	<a class="btn btn-outline-info" href="/add">Aggiungi pizza</a>
 	</div>
 </body>
 </html>
