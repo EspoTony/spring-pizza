@@ -2,6 +2,8 @@ package jana60.model;
 
 import org.hibernate.validator.constraints.Range;
 
+import java.util.List;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -24,6 +26,20 @@ public class Pizza {
     @Range(message = "Inserisci un prezzo valido", min = 4, max = 20)
     @Column(nullable = false)
     private Double price;
+    
+    @ManyToMany
+    @JoinTable(name = "pizza_ingredients",
+            joinColumns = @JoinColumn(name = "pizza_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredients_id"))
+    private List<Ingredienti> ingredients;
+
+    public List<Ingredienti> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredienti> ingredients) {
+        this.ingredients = ingredients;
+    }
 
     public Integer getId() {
         return id;
