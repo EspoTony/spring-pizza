@@ -2,13 +2,12 @@ package jana60.model;
 
 import org.hibernate.validator.constraints.Range;
 
-import java.util.List;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -23,10 +22,10 @@ public class Pizza {
     @Column(unique = true, nullable = false)
     private String name;
     private String description;
-    @Range(message = "Inserisci un prezzo valido", min = 4, max = 20)
+    @Range(message = "Inserisci un prezzo valido", min = 3, max = 20)
     @Column(nullable = false)
     private Double price;
-    
+
     @ManyToMany
     @JoinTable(name = "pizza_ingredients",
             joinColumns = @JoinColumn(name = "pizza_id"),

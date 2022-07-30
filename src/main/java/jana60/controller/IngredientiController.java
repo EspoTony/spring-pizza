@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/Ingredienti")
 public class IngredientiController {
-	@Autowired
+
+    @Autowired
     public IngredientiRepository repo;
 
     @GetMapping
     public String Ingredienti(Model m) {
-        m.addAttribute("ingre" , repo.findAll());
+        m.addAttribute("ingre" , repo.findAllByOrderByName());
         m.addAttribute("newIngre", new Ingredienti());
         return "Ingredienti";
     }
